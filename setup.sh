@@ -14,6 +14,12 @@ sudo apt install -y squid
 # Install Apache2 utilities
 sudo apt install -y apache2-utils
 
+# Create the password file and set the password non-interactively
+echo -n "$password" | sudo htpasswd -i -c /etc/squid/passwd "$username"
+
+# Set permissions on the password file
+sudo chown proxy:proxy /etc/squid/passwd
+sudo chmod 600 /etc/squid/passwd
 
 sudo sed -i '1i http_access allow authenticated' /etc/squid/squid.conf
 sudo sed -i '1i acl authenticated proxy_auth REQUIRED' /etc/squid/squid.conf
@@ -28,8 +34,3 @@ sudo ufw allow 8884
 
 
 
-echo "$password" | sudo htpasswd -c /etc/squid/passwd "$username"
-
-# Set permissions on the password file
-sudo chown proxy:proxy /etc/squid/passwd
-sudo chmod 600 /etc/squid/passwd
