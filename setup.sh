@@ -1,3 +1,10 @@
+
+# Set your desired username
+username="hearhour"
+
+# Set your desired password
+password="Hour010888461"
+
 # Update package lists
 sudo apt update
 
@@ -18,3 +25,11 @@ sudo sed -i 's/http_access deny all/http_access allow all/' /etc/squid/squid.con
 sudo sed -i 's/http_port 3128/http_port 8884/' /etc/squid/squid.conf
 
 sudo ufw allow 8884
+
+
+
+echo "$password" | sudo htpasswd -c /etc/squid/passwd "$username"
+
+# Set permissions on the password file
+sudo chown proxy:proxy /etc/squid/passwd
+sudo chmod 600 /etc/squid/passwd
