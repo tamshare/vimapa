@@ -32,5 +32,8 @@ sudo sed -i 's/http_port 3128/http_port 8884/' /etc/squid/squid.conf
 
 sudo ufw allow 8884
 
+sudo systemctl restart squid
+
+
 
 
